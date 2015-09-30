@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   validates :body, presence: true, length: { maximum: 140 }
   
   has_secure_password
+  has_many :microposts
 end
