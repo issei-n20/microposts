@@ -24,9 +24,9 @@ class UsersController < ApplicationController
   #　Userデータの更新
   def update
     if @user.update(user_params)
-      redirect_to @user , notice: '更新しました。'
+      redirect_to @user, notice: '更新しました。'
     else
-      redirect_to root_path
+      redirect_to edit_user_path, notice: '入力されていない箇所があります。'
     end
   end
   
