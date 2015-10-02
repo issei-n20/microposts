@@ -26,7 +26,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to @user, notice: '更新しました。'
     else
-      redirect_to edit_user_path, notice: '入力されていない箇所があります。'
+      render 'edit'
     end
   end
   
