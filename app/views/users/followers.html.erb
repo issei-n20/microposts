@@ -1,0 +1,4 @@
+<h1>フォロワー人数 (<%= @followers.count %>)</h1>
+<% @followers.each do |followers| %>
+<span class="label label-info"><%= followers.name %></span>
+<% end %>
