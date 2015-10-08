@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
   
+  has_many :user_likes, class_name: "Like",
+                        foreign_key: "user_id"
+  has_many :user_users, through: :user_likes, source: :micropost
+  
   # 他のユーザーをフォローする
   def follow(other_user)
     following_relationships.create(followed_id: other_user.id)
@@ -38,6 +42,11 @@ class User < ActiveRecord::Base
   # つぶやきを取得するメソッド
   def feed_items
     Micropost.where(user_id: following_user_ids + [self.id])
+  end
+  
+  # お気に入りに追加
+  def like(like_user)
+    user_likes.create(micropost_id: like_user.id)
   end
   
 end

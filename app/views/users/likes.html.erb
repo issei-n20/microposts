@@ -1,0 +1,4 @@
+<h1>お気に入り一覧 (<%= @likes.count %>)</h1>
+<% @likes.each do |likes| %>
+<span class="label label-info"><%= likes.content %></span>
+<% end %>
