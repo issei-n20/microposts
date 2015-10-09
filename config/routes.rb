@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   end
   
   resources :sessions, only: [:new, :create, :destroy]
-  resources :microposts
+  resources :microposts do
+    resources :likes, only: [:create]
+  end
   resources :relationships, only: [:create, :destroy]
-  resources :likes, only: [:create]
+  # resources :likes, only: [:create]
+  # '/micropost/:id/likes'
 end

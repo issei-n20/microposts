@@ -10,22 +10,28 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :microposts
   
+  # 中間テーブル
   has_many :following_relationships, class_name:  "Relationship",
                                      foreign_key: "follower_id",
                                      dependent:   :destroy
+  
   has_many :following_users, through: :following_relationships, source: :followed
   
+  # 中間テーブル
   has_many :follower_relationships, class_name:  "Relationship",
                                     foreign_key: "followed_id",
                                     dependent:   :destroy
   has_many :follower_users, through: :follower_relationships, source: :follower
   
-  has_many :user_likes, class_name: "Like",
-                        foreign_key: "user_id"
-  has_many :user_users, through: :user_likes, source: :micropost
+  # 中間テーブル
+  has_many :likes,      class_name: "Like",
+                        foreign_key: "micropost_id",
+                        dependent: :destroy
+  has_many :like_microposts, through: :likes, source: :micropost
   
   # 他のユーザーをフォローする
   def follow(other_user)
+    # 
     following_relationships.create(followed_id: other_user.id)
   end
 
@@ -45,8 +51,9 @@ class User < ActiveRecord::Base
   end
   
   # お気に入りに追加
-  def like(like_user)
-    user_likes.create(micropost_id: like_user.id)
+  def like(micropost)
+    
+    like.create(micropost_id: micropost.id)
   end
   
 end
