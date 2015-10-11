@@ -9,7 +9,9 @@
                                        data: { confirm: "You sure?" } %>
       <!--ここにLikeボタンを設置します。form_forでやるならば
       inputのhiddenタグを入れてmicropost_idをデータとして入れておく-->
-      <%= link_to "like", micropost_likes_path(micropost), method: :post, remote: true %>
     <% end %>
+          <% if current_user != micropost.user %>
+      <%= link_to "like", micropost_likes_path(micropost), method: :post, remote: true %>
+      <% end %>
   </span>
 </li>

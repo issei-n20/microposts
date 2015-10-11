@@ -52,8 +52,7 @@ class User < ActiveRecord::Base
   
   # お気に入りに追加
   def like(micropost)
-    
-    like.create(micropost_id: micropost.id)
+    likes.create(micropost_id: micropost.id)
   end
   
 end
